@@ -11,6 +11,7 @@ Plug 'rdnetto/YCM-Generator', {'branch' : 'stable'}
 Plug 'romainl/vim-qf'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'universal-ctags/ctags'
+Plug 'altercation/vim-colors-solarized'
 
 " Initialize plugin system
 call plug#end()
@@ -38,6 +39,13 @@ set incsearch
 set hlsearch
 set display=lastline
 set hidden
+
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+colorscheme solarized
 
 " Hotkey setting
 inoremap jj <ESC>
