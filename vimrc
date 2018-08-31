@@ -55,8 +55,8 @@ endif
 inoremap jj <ESC>
 map j gj
 map k gk
-let mapleader = ","
-let g:mapleader = ","
+let mapleader=","
+let g:mapleader=","
 nmap <leader>w :w!<CR>
 noremap <leader><space> :call StripTrailing()<CR>
 noremap <leader>g :YcmCompleter GoTo<CR>
@@ -91,4 +91,16 @@ let g:gutentags_ctags_extra_args=['--fields=+niazS', '--extra=+q', '--c++-kinds=
 
 if !isdirectory(s:vim_tags)
     silent! call mkdir(s:vim_tags, 'p')
+endif
+
+let $GTAGSLABEL='native-pygments'
+if has('unix')
+    let s:uname=system('uname -s')
+    if s:uname=="Linux\n"
+        let $GTAGSCONF='~/.local/share/gtags/gtags.conf'
+    elseif s:uname=='Darwin'
+        let $GTAGSCONF=''
+    else
+        echo 'Unkown OS'
+    endif
 endif
