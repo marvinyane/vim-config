@@ -39,6 +39,7 @@ set incsearch
 set hlsearch
 set display=lastline
 set hidden
+set tags=./.tags;,.tags
 
 if has('gui_running')
     set background=light
@@ -69,6 +70,19 @@ function! StripTrailing()
     let @/=previous_search
     call cursor(previous_cursor_line, previous_cursor_column)
 endfunction
+
+" Gutentags setting
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_ctags_tagfile = '.tags'
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags, 'p')
+endif
 
 " YouCompleteMe setting
 let g:ycm_semantic_triggers = {"c,cpp,python,java,go,lua,javascript": ["re!\w{2}"]}
