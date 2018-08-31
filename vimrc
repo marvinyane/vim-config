@@ -8,10 +8,9 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator', {'branch' : 'stable'}
-Plug 'romainl/vim-qf'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'universal-ctags/ctags'
 Plug 'altercation/vim-colors-solarized'
+Plug 'universal-ctags/ctags'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Initialize plugin system
 call plug#end()
