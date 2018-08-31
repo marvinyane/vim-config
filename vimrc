@@ -47,6 +47,10 @@ else
 endif
 colorscheme solarized
 
+if has('mouse')
+    set mouse=a
+endif
+
 " Hotkey setting
 inoremap jj <ESC>
 map j gj
