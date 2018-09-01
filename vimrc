@@ -98,8 +98,8 @@ if has('unix')
     let s:uname=system('uname -s')
     if s:uname=="Linux\n"
         let $GTAGSCONF='~/.local/share/gtags/gtags.conf'
-    elseif s:uname=='Darwin'
-        let $GTAGSCONF=''
+    elseif s:uname=="Darwin\n"
+        let $GTAGSCONF='/usr/local/Cellar/global/6.6.2_1/share/gtags/gtags.conf'
     else
         echo 'Unkown OS'
     endif
