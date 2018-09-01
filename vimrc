@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator', {'branch' : 'stable'}
 Plug 'altercation/vim-colors-solarized'
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Initialize plugin system
 call plug#end()
@@ -83,11 +83,11 @@ let g:ycm_confirm_extra_conf=0
 let g:ycm_max_num_candidates=10
 
 " Gutentags setting
-let g:gutentags_project_root=['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root=['.svn', '.git', '.project']
 let g:gutentags_ctags_tagfile='.tags'
 let s:vim_tags=expand('~/.cache/tags')
 let g:gutentags_cache_dir=s:vim_tags
-let g:gutentags_ctags_extra_args=['--fields=+niazS', '--extra=+q', '--c++-kinds=+px', '--c-kinds=+px']
+let g:gutentags_ctags_extra_args=['--fields=+niazS', '--extra=+q', '--c++-kinds=+px', '--c-kinds=+px', '--output-format=e-ctags']
 
 if !isdirectory(s:vim_tags)
     silent! call mkdir(s:vim_tags, 'p')
