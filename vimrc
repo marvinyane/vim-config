@@ -10,6 +10,7 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator', {'branch' : 'stable'}
 Plug 'altercation/vim-colors-solarized'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
 
 " Initialize plugin system
 call plug#end()
@@ -60,31 +61,35 @@ let g:mapleader=","
 nmap <leader>w :w!<CR>
 noremap <leader><space> :call StripTrailing()<CR>
 noremap <leader>g :YcmCompleter GoTo<CR>
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+noremap <C-l> <C-W>l
+noremap <C-k> <C-W>k
+noremap <C-j> <C-W>j
+noremap <C-h> <C-W>h
+" nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+" nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+" nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
-" Function
-function! StripTrailing()
-    let previous_search=@/
-    let previous_cursor_line=line('.')
-    let previous_cursor_column=col('.')
-    %s/\s\+$//e
-    let @/=previous_search
-    call cursor(previous_cursor_line, previous_cursor_column)
-endfunction
+noremap <silent> <C-\>s :GscopeFind s <C-R><C-W><CR>
+noremap <silent> <C-\>g :GscopeFind g <C-R><C-W><CR>
+noremap <silent> <C-\>c :GscopeFind c <C-R><C-W><CR>
+noremap <silent> <C-\>t :GscopeFind t <C-R><C-W><CR>
+noremap <silent> <C-\>e :GscopeFind e <C-R><C-W><CR>
+noremap <silent> <C-\>f :GscopeFind f <C-R>=expand("<cfile>")<CR><CR>
+noremap <silent> <C-\>i :GscopeFind i <C-R>=expand("<cfile>")<CR><CR>
+noremap <silent> <C-\>d :GscopeFind d <C-R><C-W><CR>
+noremap <silent> <C-\>a :GscopeFind a <C-R><C-W><CR>
+noremap <silent> <C-\>k :GscopeKill<CR>
 
 " YouCompleteMe setting
 let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!\w{2}']}
 let g:ycm_filetype_whitelist={'c': 1, 'cpp': 1, 'cc': 1, 'h': 1, 'go': 1, 'java': 1, 'lua': 1, 'javascript': 1}
 let g:ycm_complete_in_comments=1
 let g:ycm_server_log_level='info'
-let g:ycm_key_invoke_completion='<c-z>'
 let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_min_num_identifier_candidate_chars=2
 let g:ycm_confirm_extra_conf=0
@@ -113,3 +118,14 @@ if executable('gtags') && executable('gtags-cscope')
 endif
 
 let g:gutentags_auto_add_gtags_cscope=0
+let g:gutentags_plus_nomap = 1
+
+" Function
+function! StripTrailing()
+    let previous_search=@/
+    let previous_cursor_line=line('.')
+    let previous_cursor_column=col('.')
+    %s/\s\+$//e
+    let @/=previous_search
+    call cursor(previous_cursor_line, previous_cursor_column)
+endfunction
