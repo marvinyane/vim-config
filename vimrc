@@ -11,6 +11,7 @@ Plug 'rdnetto/YCM-Generator', {'branch' : 'stable'}
 Plug 'altercation/vim-colors-solarized'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
+Plug 'mhinz/vim-signify'
 
 " Initialize plugin system
 call plug#end()
@@ -40,6 +41,7 @@ set display=lastline
 set hidden
 set tags=./.tags;,.tags
 set completeopt=menu,menuone
+set signcolumn=yes
 
 if has('gui_running')
     set background=light
