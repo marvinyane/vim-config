@@ -94,13 +94,15 @@ if !isdirectory(s:vim_tags)
 endif
 
 let $GTAGSLABEL='native-pygments'
-if has('unix')
-    let s:uname=system('uname -s')
-    if s:uname=="Linux\n"
-        let $GTAGSCONF='~/.local/share/gtags/gtags.conf'
-    elseif s:uname=="Darwin\n"
-        let $GTAGSCONF='/usr/local/Cellar/global/6.6.2_1/share/gtags/gtags.conf'
-    else
-        echo 'Unkown OS'
-    endif
+let $GTAGSCONF=fnamemodify(systemlist('which gtags')[0], ':p:h') . '/../share/gtags/gtags.conf'
+
+let g:gutentags_modules=[]
+if executable('ctags')
+    let g:gutentags_modules+=['ctags']
 endif
+if executable('gtags') && executable('gtags-cscope')
+    let g:gutentags_modules+=['gtags_cscope']
+endif
+
+let g:gutentags_auto_add_gtags_cscope=0
+let g:gutentags_define_advanced_commands=1
