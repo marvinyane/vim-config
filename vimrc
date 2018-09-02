@@ -59,16 +59,23 @@ set tags=./.tags;,.tags
 set completeopt=menu,menuone
 set signcolumn=yes
 
+colorscheme solarized
+
 if has('gui_running')
     set background=light
 else
     set background=dark
 endif
-colorscheme solarized
 
 if has('mouse')
     set mouse=a
 endif
+
+hi! clear SignColumn
+
+highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
+highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
+highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
 
 " Hotkey
 inoremap jj <ESC>
@@ -114,7 +121,7 @@ noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
 noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 " YouCompleteMe settings
-let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!\s+\w{2}']}
+let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!^\s+\w{2}']}
 let g:ycm_filetype_whitelist={'c': 1, 'cpp': 1, 'cc': 1, 'h': 1, 'go': 1, 'java': 1, 'lua': 1, 'javascript': 1}
 let g:ycm_seed_identifiers_with_syntax=0
 let g:ycm_key_invoke_completion='<leader>c'
@@ -125,7 +132,7 @@ let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_min_num_identifier_candidate_chars=2
 let g:ycm_confirm_extra_conf=0
 let g:ycm_max_num_candidates=10
-let g:ycm_show_diagnostics_ui=1
+let g:ycm_show_diagnostics_ui=0
 
 " Gutentags
 let g:gutentags_project_root=['.svn', '.git', '.project']
@@ -210,6 +217,23 @@ let g:airline_theme='solarized'
 
 " Easymotion
 let g:EasyMotion_smartcase=1
+
+" Ale
+let g:ale_linters_explicit=0
+let g:ale_completion_delay=500
+let g:ale_echo_delay=20
+let g:ale_lint_delay=500
+let g:ale_echo_msg_format='[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed='normal'
+let g:ale_lint_on_insert_leave=1
+let g:airline#extensions#ale#enabled=1
+
+let g:ale_c_gcc_options='-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options='-Wall -O2 -std=c++17'
+let g:ale_c_cppcheck_options=''
+let g:ale_cpp_cppcheck_options=''
+
+let g:ale_sign_error="\ue009"
 
 " Function
 function! StripTrailing()
