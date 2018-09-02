@@ -22,6 +22,9 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-commentary'
 Plug 'albfan/ag.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'easymotion/vim-easymotion'
 
 " Initialize plugin system
 call plug#end()
@@ -46,7 +49,6 @@ set laststatus=2
 set noshowmode
 set noshowcmd
 set incsearch
-set hlsearch
 set display=lastline
 set hidden
 set tags=./.tags;,.tags
@@ -96,10 +98,12 @@ noremap <leader>g :YcmCompleter GoTo<CR>
 noremap <leader>f :LeaderfFile<CR>
 noremap <leader>b :LeaderfBuffer<CR>
 noremap <leader>t :LeaderfTag<CR>
-noremap <leader>r :LeaderfMRU<CR>
+noremap <leader>r :LeaderfMru<CR>
 noremap <leader>m :LeaderfFunction<CR>
 nnoremap <leader>a :Ag!<space>
-vnoremap <Leader>a y:Ag! <C-r>=fnameescape(@")<CR>
+vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
+nmap <leader>d <Plug>(easymotion-bd-f)
+nmap <leader>e <Plug>(easymotion-bd-jk)
 
 " YouCompleteMe settings
 let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!\w{2}']}
@@ -178,16 +182,22 @@ let g:cpp_class_decl_highlight=1
 let g:cpp_no_function_highlight=0
 
 " LeaderF
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-let g:Lf_RootMarkers = ['.project', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/cache')
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+let g:Lf_StlSeparator={ 'left': '', 'right': '', 'font': '' }
+let g:Lf_RootMarkers=['.project', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode='Ac'
+let g:Lf_WindowHeight=0.30
+let g:Lf_CacheDirectory=expand('~/.vim/cache')
+let g:Lf_ShowRelativePath=0
+let g:Lf_HideHelp=1
+let g:Lf_StlColorscheme='powerline'
+let g:Lf_PreviewResult={'Function':0, 'BufTag':0}
 let g:Lf_CommandMap={'<C-J>': ['<C-N>'], '<C-K>': ['<C-P>']}
+
+" Airline
+let g:airline_theme='solarized'
+
+" Easymotion
+let g:EasyMotion_smartcase=1
 
 " Function
 function! StripTrailing()
