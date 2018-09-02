@@ -25,6 +25,10 @@ Plug 'albfan/ag.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'w0rp/ale'
 
 " Initialize plugin system
 call plug#end()
@@ -88,7 +92,7 @@ nnoremap <silent><C-n> :PreviewClose<CR>
 
 let mapleader=","
 let g:mapleader=","
-nmap <leader>w :w!<CR>
+map <leader>w :w!<CR>
 noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 noremap <leader>h :nohls<CR>
 noremap <leader>q :cw<CR>
@@ -102,18 +106,26 @@ noremap <leader>r :LeaderfMru<CR>
 noremap <leader>m :LeaderfFunction<CR>
 nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
-nmap <leader>d <Plug>(easymotion-bd-f)
-nmap <leader>e <Plug>(easymotion-bd-jk)
+nmap <leader>d <Plug>(easymotion-f)
+nmap <leader>e <Plug>(easymotion-F)
+noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 " YouCompleteMe settings
-let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!\w{2}']}
+let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!\s+\w{2}']}
 let g:ycm_filetype_whitelist={'c': 1, 'cpp': 1, 'cc': 1, 'h': 1, 'go': 1, 'java': 1, 'lua': 1, 'javascript': 1}
+let g:ycm_seed_identifiers_with_syntax=0
+let g:ycm_key_invoke_completion='<leader>c'
 let g:ycm_complete_in_comments=1
-let g:ycm_server_log_level='info'
+let g:ycm_complete_in_strings=1
+let g:ycm_log_level='error'
 let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_min_num_identifier_candidate_chars=2
 let g:ycm_confirm_extra_conf=0
 let g:ycm_max_num_candidates=10
+let g:ycm_show_diagnostics_ui=1
 
 " Gutentags
 let g:gutentags_project_root=['.svn', '.git', '.project']
@@ -207,4 +219,24 @@ function! StripTrailing()
     %s/\s\+$//e
     let @/=previous_search
     call cursor(previous_cursor_line, previous_cursor_column)
+endfunction
+
+function! s:incsearch_config(...) abort
+  return incsearch#util#deepextend(deepcopy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {
+  \     "\<CR>": '<Over>(easymotion)'
+  \   },
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
+
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+  \   'converters': [incsearch#config#fuzzyword#converter()],
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0,
+  \   'is_stay': 1
+  \ }), get(a:, 1, {}))
 endfunction
