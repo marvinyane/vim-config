@@ -19,6 +19,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'Yggdroot/LeaderF'
 
 " Initialize plugin system
 call plug#end()
@@ -65,16 +66,10 @@ endif
 inoremap jj <ESC>
 map j gj
 map k gk
-let mapleader=","
-let g:mapleader=","
-nmap <leader>w :w!<CR>
-noremap <leader><space> :call StripTrailing()<CR>
-noremap <leader>g :YcmCompleter GoTo<CR>
 noremap <C-l> <C-W>l
 noremap <C-k> <C-W>k
 noremap <C-j> <C-W>j
 noremap <C-h> <C-W>h
-noremap <leader>h :nohls<CR>
 noremap <silent><C-\>s :GscopeFind s <C-R><C-W><cr>
 noremap <silent><C-\>g :GscopeFind g <C-R><C-W><cr>
 noremap <silent><C-\>c :GscopeFind c <C-R><C-W><cr>
@@ -84,11 +79,23 @@ noremap <silent><C-\>f :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
 noremap <silent><C-\>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
 noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
 noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
-noremap <leader>q :cw<CR>
-noremap <leader>a :A<CR>
+nnoremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
+nnoremap <silent><C-n> :PreviewClose<CR>
+
+let mapleader=","
+let g:mapleader=","
+nmap <leader>w :w!<CR>
 noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-noremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
-noremap <silent><C-n> :PreviewClose<CR>
+noremap <leader>h :nohls<CR>
+noremap <leader>q :cw<CR>
+noremap <leader>s :A<CR>
+noremap <leader><space> :call StripTrailing()<CR>
+noremap <leader>g :YcmCompleter GoTo<CR>
+noremap <leader>f :LeaderfFile<CR>
+noremap <leader>b :LeaderfBuffer<CR>
+noremap <leader>t :LeaderfTag<CR>
+noremap <leader>r :LeaderfMRU<CR>
+noremap <leader>m :LeaderfFunction<CR>
 
 " YouCompleteMe settings
 let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!\w{2}']}
@@ -165,6 +172,18 @@ let g:cpp_class_scope_highlight=1
 let g:cpp_member_variable_highlight=1
 let g:cpp_class_decl_highlight=1
 let g:cpp_no_function_highlight=0
+
+" LeaderF
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+let g:Lf_RootMarkers = ['.project', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+let g:Lf_CommandMap={'<C-J>': ['<C-N>'], '<C-K>': ['<C-P>']}
 
 " Function
 function! StripTrailing()
