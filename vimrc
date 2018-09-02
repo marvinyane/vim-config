@@ -20,6 +20,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'Yggdroot/LeaderF'
+Plug 'tpope/vim-commentary'
+Plug 'albfan/ag.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -62,7 +64,7 @@ if has('mouse')
     set mouse=a
 endif
 
-" Hotkey settings
+" Hotkey
 inoremap jj <ESC>
 map j gj
 map k gk
@@ -96,6 +98,8 @@ noremap <leader>b :LeaderfBuffer<CR>
 noremap <leader>t :LeaderfTag<CR>
 noremap <leader>r :LeaderfMRU<CR>
 noremap <leader>m :LeaderfFunction<CR>
+nnoremap <leader>a :Ag!<space>
+vnoremap <Leader>a y:Ag! <C-r>=fnameescape(@")<CR>
 
 " YouCompleteMe settings
 let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!\w{2}']}
@@ -107,7 +111,7 @@ let g:ycm_min_num_identifier_candidate_chars=2
 let g:ycm_confirm_extra_conf=0
 let g:ycm_max_num_candidates=10
 
-" Gutentags settings
+" Gutentags
 let g:gutentags_project_root=['.svn', '.git', '.project']
 let g:gutentags_ctags_tagfile='.tags'
 let s:vim_tags=expand('~/.cache/tags')
@@ -133,10 +137,10 @@ let g:gutentags_auto_add_gtags_cscope=0
 let g:gutentags_plus_nomap=1
 let g:gutentags_plus_switch=1
 
-" Echodoc settings
+" Echodoc
 let g:echodoc_enable_at_startup=1
 
-" Dirvish settings
+" Dirvish
 augroup dirvish_config
     autocmd!
     autocmd FileTYpe dirvish nnoremap <silent><buffer> t :call dirvish#open('tabedit', 0)<CR> |xnoremap <silent><buffer> t :call dirvish#open('tabedit', 0)<CR>
