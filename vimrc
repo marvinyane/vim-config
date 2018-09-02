@@ -1,5 +1,5 @@
 set nocompatible
-syntax enable
+syntax on
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -11,14 +11,21 @@ Plug 'rdnetto/YCM-Generator', {'branch' : 'stable'}
 Plug 'altercation/vim-colors-solarized'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
+Plug 'skywind3000/vim-preview'
 Plug 'mhinz/vim-signify'
+Plug 'justinmk/vim-dirvish'
+Plug 'Shougo/echodoc.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-eunuch'
+Plug 'vim-scripts/a.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Initialize plugin system
 call plug#end()
 
-" Vim default setting
+" Vim default settings
 set encoding=utf-8
-set nu
+set number
 set listchars=tab:▸\ ,trail:▫
 set list
 set expandtab
@@ -26,15 +33,15 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set ignorecase
-set smartcase
 set noerrorbells
 set novisualbell
-set backspace=indent,eol,start
+set backspace=2
 set lazyredraw
 set autoindent
+set smartindent
 set laststatus=2
-set showmode
-set showcmd
+set noshowmode
+set noshowcmd
 set incsearch
 set hlsearch
 set display=lastline
@@ -54,7 +61,7 @@ if has('mouse')
     set mouse=a
 endif
 
-" Hotkey setting
+" Hotkey settings
 inoremap jj <ESC>
 map j gj
 map k gk
@@ -67,27 +74,23 @@ noremap <C-l> <C-W>l
 noremap <C-k> <C-W>k
 noremap <C-j> <C-W>j
 noremap <C-h> <C-W>h
-" nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-" nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-" nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+noremap <leader>h :nohls<CR>
+noremap <silent><C-\>s :GscopeFind s <C-R><C-W><cr>
+noremap <silent><C-\>g :GscopeFind g <C-R><C-W><cr>
+noremap <silent><C-\>c :GscopeFind c <C-R><C-W><cr>
+noremap <silent><C-\>t :GscopeFind t <C-R><C-W><cr>
+noremap <silent><C-\>e :GscopeFind e <C-R><C-W><cr>
+noremap <silent><C-\>f :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+noremap <silent><C-\>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
+noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
+noremap <leader>q :cw<CR>
+noremap <leader>a :A<CR>
+noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+noremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
+noremap <silent><C-n> :PreviewClose<CR>
 
-noremap <silent> <C-\>s :GscopeFind s <C-R><C-W><CR>
-noremap <silent> <C-\>g :GscopeFind g <C-R><C-W><CR>
-noremap <silent> <C-\>c :GscopeFind c <C-R><C-W><CR>
-noremap <silent> <C-\>t :GscopeFind t <C-R><C-W><CR>
-noremap <silent> <C-\>e :GscopeFind e <C-R><C-W><CR>
-noremap <silent> <C-\>f :GscopeFind f <C-R>=expand("<cfile>")<CR><CR>
-noremap <silent> <C-\>i :GscopeFind i <C-R>=expand("<cfile>")<CR><CR>
-noremap <silent> <C-\>d :GscopeFind d <C-R><C-W><CR>
-noremap <silent> <C-\>a :GscopeFind a <C-R><C-W><CR>
-noremap <silent> <C-\>k :GscopeKill<CR>
-
-" YouCompleteMe setting
+" YouCompleteMe settings
 let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!\w{2}']}
 let g:ycm_filetype_whitelist={'c': 1, 'cpp': 1, 'cc': 1, 'h': 1, 'go': 1, 'java': 1, 'lua': 1, 'javascript': 1}
 let g:ycm_complete_in_comments=1
@@ -97,7 +100,7 @@ let g:ycm_min_num_identifier_candidate_chars=2
 let g:ycm_confirm_extra_conf=0
 let g:ycm_max_num_candidates=10
 
-" Gutentags setting
+" Gutentags settings
 let g:gutentags_project_root=['.svn', '.git', '.project']
 let g:gutentags_ctags_tagfile='.tags'
 let s:vim_tags=expand('~/.cache/tags')
@@ -120,7 +123,48 @@ if executable('gtags') && executable('gtags-cscope')
 endif
 
 let g:gutentags_auto_add_gtags_cscope=0
-let g:gutentags_plus_nomap = 1
+let g:gutentags_plus_nomap=1
+let g:gutentags_plus_switch=1
+
+" Echodoc settings
+let g:echodoc_enable_at_startup=1
+
+" Dirvish settings
+augroup dirvish_config
+    autocmd!
+    autocmd FileTYpe dirvish nnoremap <silent><buffer> t :call dirvish#open('tabedit', 0)<CR> |xnoremap <silent><buffer> t :call dirvish#open('tabedit', 0)<CR>
+    autocmd FileType dirvish nnoremap <silent><buffer> gr :<C-U>Dirvish %<CR>
+    autocmd FileType dirvish silent keeppatterns g@\v/\.[^\/]+/?$@d _
+    autocmd FileType dirvish sort ,^.*[\/],
+    autocmd FileType dirvish silent! unmap <buffer> o
+    autocmd FileType dirvish nmap o i
+augroup END
+
+let g:loaded_netrwPlugin=1
+command! -nargs=? -complete=dir Explore Dirvish <args>
+command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
+command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
+
+" Quickfix
+augroup qf_config
+    autocmd!
+    autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+    autocmd FileType qf nnoremap <silent><buffer> o <CR>:cclose<CR>
+    autocmd FileType qf nnoremap <silent><buffer> q :cclose<CR>
+augroup END
+
+" Preview
+augroup priview_config
+    autocmd!
+    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<CR>
+    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<CR>
+augroup END
+
+" CppEnhancedHighlight
+let g:cpp_class_scope_highlight=1
+let g:cpp_member_variable_highlight=1
+let g:cpp_class_decl_highlight=1
+let g:cpp_no_function_highlight=0
 
 " Function
 function! StripTrailing()
