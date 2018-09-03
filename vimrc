@@ -26,7 +26,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
@@ -55,6 +54,7 @@ set smartindent
 set laststatus=2
 set noshowmode
 set noshowcmd
+set hlsearch
 set incsearch
 set display=lastline
 set hidden
@@ -120,10 +120,18 @@ nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
 nmap <leader>d <Plug>(easymotion-f)
 nmap <leader>e <Plug>(easymotion-F)
-noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
-noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
-noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
-noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+noremap <silent><expr> z/ incsearch#go(<SID>config_fuzzyall())
+noremap <silent><expr> z? incsearch#go(<SID>config_fuzzyall({'command': '?'}))
+noremap <silent><expr> zg? incsearch#go(<SID>config_fuzzyall({'is_stay': 1}))
 
 " YouCompleteMe settings
 let g:ycm_use_ultisnips_completer                       = 1
@@ -223,6 +231,7 @@ let g:airline_theme='solarized'
 
 " Easymotion
 let g:EasyMotion_smartcase=1
+let g:incsearch#auto_nohlsearch=1
 
 " Ale
 let g:ale_linters_explicit           = 0
@@ -237,7 +246,6 @@ let g:ale_c_gcc_options              = '-Wall -O2 -std=c99'
 let g:ale_cpp_gcc_options            = '-Wall -O2 -std=c++17'
 let g:ale_c_cppcheck_options         = ''
 let g:ale_cpp_cppcheck_options       = ''
-let g:ale_sign_error                 = "\ue009"
 
 " UltiSnippets/vim-snippets
 let g:UltiSnipsExpandTrigger       = "<leader><leader>"
@@ -254,22 +262,11 @@ function! StripTrailing()
     call cursor(previous_cursor_line, previous_cursor_column)
 endfunction
 
-function! s:incsearch_config(...) abort
-  return incsearch#util#deepextend(deepcopy({
-  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-  \   'keymap': {
-  \     "\<CR>": '<Over>(easymotion)'
-  \   },
-  \   'is_expr': 0
-  \ }), get(a:, 1, {}))
-endfunction
-
-function! s:config_easyfuzzymotion(...) abort
+function! s:config_fuzzyall(...) abort
   return extend(copy({
-  \   'converters': [incsearch#config#fuzzyword#converter()],
-  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-  \   'is_expr': 0,
-  \   'is_stay': 1
+  \   'converters': [
+  \     incsearch#config#fuzzy#converter(),
+  \     incsearch#config#fuzzyspell#converter()
+  \   ],
   \ }), get(a:, 1, {}))
 endfunction
