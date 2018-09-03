@@ -29,6 +29,9 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'w0rp/ale'
+Plug 'junegunn/vim-easy-align'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Initialize plugin system
 call plug#end()
@@ -73,9 +76,9 @@ endif
 
 hi! clear SignColumn
 
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
+highlight DiffAdd    cterm=bold ctermbg=none ctermfg=119
+highlight DiffDelete cterm=bold ctermbg=none ctermfg=167
+highlight DiffChange cterm=bold ctermbg=none ctermfg=227
 
 " Hotkey
 inoremap jj <ESC>
@@ -96,6 +99,8 @@ noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
 noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
 nnoremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
 nnoremap <silent><C-n> :PreviewClose<CR>
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 let mapleader=","
 let g:mapleader=","
@@ -121,25 +126,26 @@ noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
 noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 " YouCompleteMe settings
-let g:ycm_semantic_triggers={'c,cpp,python,java,go,lua,javascript': ['re!^\s+\w{2}']}
-let g:ycm_filetype_whitelist={'c': 1, 'cpp': 1, 'cc': 1, 'h': 1, 'go': 1, 'java': 1, 'lua': 1, 'javascript': 1}
-let g:ycm_seed_identifiers_with_syntax=0
-let g:ycm_key_invoke_completion='<leader>c'
-let g:ycm_complete_in_comments=1
-let g:ycm_complete_in_strings=1
-let g:ycm_log_level='error'
-let g:ycm_collect_identifiers_from_comments_and_strings=1
-let g:ycm_min_num_identifier_candidate_chars=2
-let g:ycm_confirm_extra_conf=0
-let g:ycm_max_num_candidates=10
-let g:ycm_show_diagnostics_ui=0
+let g:ycm_use_ultisnips_completer                       = 1
+let g:ycm_semantic_triggers                             = {'c,cpp,python,java,go,lua,javascript': ['re!^\s+\w{2}']}
+let g:ycm_filetype_whitelist                            = {'c': 1, 'cpp': 1, 'cc': 1, 'h': 1, 'go': 1, 'java': 1, 'lua': 1, 'javascript': 1}
+let g:ycm_seed_identifiers_with_syntax                  = 0
+let g:ycm_key_invoke_completion                         = '<leader>c'
+let g:ycm_complete_in_comments                          = 1
+let g:ycm_complete_in_strings                           = 1
+let g:ycm_log_level                                     = 'error'
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_min_num_identifier_candidate_chars            = 2
+let g:ycm_confirm_extra_conf                            = 0
+let g:ycm_max_num_candidates                            = 10
+let g:ycm_show_diagnostics_ui                           = 0
 
 " Gutentags
-let g:gutentags_project_root=['.svn', '.git', '.project']
-let g:gutentags_ctags_tagfile='.tags'
-let s:vim_tags=expand('~/.cache/tags')
-let g:gutentags_cache_dir=s:vim_tags
-let g:gutentags_ctags_extra_args=['--fields=+niazS', '--extra=+q', '--c++-kinds=+px', '--c-kinds=+px', '--output-format=e-ctags']
+let g:gutentags_project_root     = ['.svn', '.git', '.project']
+let g:gutentags_ctags_tagfile    = '.tags'
+let s:vim_tags                   = expand('~/.cache/tags')
+let g:gutentags_cache_dir        = s:vim_tags
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c++-kinds=+px', '--c-kinds=+px', '--output-format=e-ctags']
 
 if !isdirectory(s:vim_tags)
     silent! call mkdir(s:vim_tags, 'p')
@@ -195,22 +201,22 @@ augroup priview_config
 augroup END
 
 " CppEnhancedHighlight
-let g:cpp_class_scope_highlight=1
-let g:cpp_member_variable_highlight=1
-let g:cpp_class_decl_highlight=1
-let g:cpp_no_function_highlight=0
+let g:cpp_class_scope_highlight     = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight      = 1
+let g:cpp_no_function_highlight     = 0
 
 " LeaderF
-let g:Lf_StlSeparator={ 'left': '', 'right': '', 'font': '' }
-let g:Lf_RootMarkers=['.project', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode='Ac'
-let g:Lf_WindowHeight=0.30
-let g:Lf_CacheDirectory=expand('~/.vim/cache')
-let g:Lf_ShowRelativePath=0
-let g:Lf_HideHelp=1
-let g:Lf_StlColorscheme='powerline'
-let g:Lf_PreviewResult={'Function':0, 'BufTag':0}
-let g:Lf_CommandMap={'<C-J>': ['<C-N>'], '<C-K>': ['<C-P>']}
+let g:Lf_StlSeparator         = { 'left': '', 'right': '', 'font': '' }
+let g:Lf_RootMarkers          = ['.project', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight         = 0.30
+let g:Lf_CacheDirectory       = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath     = 0
+let g:Lf_HideHelp             = 1
+let g:Lf_StlColorscheme       = 'powerline'
+let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
+let g:Lf_CommandMap           = {'<C-J>': ['<C-N>'], '<C-K>': ['<C-P>']}
 
 " Airline
 let g:airline_theme='solarized'
@@ -219,21 +225,24 @@ let g:airline_theme='solarized'
 let g:EasyMotion_smartcase=1
 
 " Ale
-let g:ale_linters_explicit=0
-let g:ale_completion_delay=500
-let g:ale_echo_delay=20
-let g:ale_lint_delay=500
-let g:ale_echo_msg_format='[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed='normal'
-let g:ale_lint_on_insert_leave=1
-let g:airline#extensions#ale#enabled=1
+let g:ale_linters_explicit           = 0
+let g:ale_completion_delay           = 500
+let g:ale_echo_delay                 = 20
+let g:ale_lint_delay                 = 500
+let g:ale_echo_msg_format            = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed       = 'normal'
+let g:ale_lint_on_insert_leave       = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_c_gcc_options              = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options            = '-Wall -O2 -std=c++17'
+let g:ale_c_cppcheck_options         = ''
+let g:ale_cpp_cppcheck_options       = ''
+let g:ale_sign_error                 = "\ue009"
 
-let g:ale_c_gcc_options='-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options='-Wall -O2 -std=c++17'
-let g:ale_c_cppcheck_options=''
-let g:ale_cpp_cppcheck_options=''
-
-let g:ale_sign_error="\ue009"
+" UltiSnippets/vim-snippets
+let g:UltiSnipsExpandTrigger       = "<leader><leader>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-f>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 
 " Function
 function! StripTrailing()
