@@ -10,8 +10,8 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator', {'branch' : 'stable'}
 Plug 'altercation/vim-colors-solarized'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
-Plug 'skywind3000/vim-preview'
+" Plug 'skywind3000/gutentags_plus'
+" Plug 'skywind3000/vim-preview'
 Plug 'mhinz/vim-signify'
 Plug 'justinmk/vim-dirvish'
 Plug 'Shougo/echodoc.vim'
@@ -19,7 +19,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'Yggdroot/LeaderF'
+" Plug 'Yggdroot/LeaderF'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
 Plug 'tpope/vim-commentary'
 Plug 'albfan/ag.vim'
 Plug 'vim-airline/vim-airline'
@@ -62,6 +64,7 @@ set tags=./.tags;,.tags
 set completeopt=menu,menuone
 set signcolumn=yes
 set mouse=a
+set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
 
 colorscheme solarized
 
@@ -73,8 +76,6 @@ endif
 
 hi! clear SignColumn
 hi! clear LineNr
-hi! clear StatusLineNC
-hi! clear StatusLine
 hi! clear VertSplit
 
 highlight DiffAdd    cterm=bold ctermbg=none ctermfg=119
@@ -89,17 +90,25 @@ noremap <C-l> <C-W>l
 noremap <C-k> <C-W>k
 noremap <C-j> <C-W>j
 noremap <C-h> <C-W>h
-noremap <silent><C-\>s :GscopeFind s <C-R><C-W><cr>
-noremap <silent><C-\>g :GscopeFind g <C-R><C-W><cr>
-noremap <silent><C-\>c :GscopeFind c <C-R><C-W><cr>
-noremap <silent><C-\>t :GscopeFind t <C-R><C-W><cr>
-noremap <silent><C-\>e :GscopeFind e <C-R><C-W><cr>
-noremap <silent><C-\>f :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent><C-\>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
-noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
-nnoremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
-nnoremap <silent><C-n> :PreviewClose<CR>
+    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+" noremap <silent><C-\>s :GscopeFind s <C-R><C-W><cr>
+" noremap <silent><C-\>g :GscopeFind g <C-R><C-W><cr>
+" noremap <silent><C-\>c :GscopeFind c <C-R><C-W><cr>
+" noremap <silent><C-\>t :GscopeFind t <C-R><C-W><cr>
+" noremap <silent><C-\>e :GscopeFind e <C-R><C-W><cr>
+" noremap <silent><C-\>f :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+" noremap <silent><C-\>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+" noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
+" noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
+" nnoremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
+" nnoremap <silent><C-n> :PreviewClose<CR>
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
@@ -166,7 +175,7 @@ if executable('gtags') && executable('gtags-cscope')
     let g:gutentags_modules+=['gtags_cscope']
 endif
 
-let g:gutentags_auto_add_gtags_cscope=0
+let g:gutentags_auto_add_gtags_cscope=1
 let g:gutentags_plus_nomap=1
 let g:gutentags_plus_switch=1
 
@@ -223,6 +232,9 @@ let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 
 " Airline
 let g:airline_theme='solarized'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Easymotion
 let g:EasyMotion_smartcase=1
