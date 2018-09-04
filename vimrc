@@ -61,6 +61,7 @@ set hidden
 set tags=./.tags;,.tags
 set completeopt=menu,menuone
 set signcolumn=yes
+set mouse=a
 
 colorscheme solarized
 
@@ -70,11 +71,11 @@ else
     set background=dark
 endif
 
-if has('mouse')
-    set mouse=a
-endif
-
 hi! clear SignColumn
+hi! clear LineNr
+hi! clear StatusLineNC
+hi! clear StatusLine
+hi! clear VertSplit
 
 highlight DiffAdd    cterm=bold ctermbg=none ctermfg=119
 highlight DiffDelete cterm=bold ctermbg=none ctermfg=167
@@ -99,11 +100,12 @@ noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
 noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
 nnoremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
 nnoremap <silent><C-n> :PreviewClose<CR>
-xmap ga <Plug>(EasyAlign)
+vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-let mapleader=","
-let g:mapleader=","
+let mapleader   = ","
+let g:mapleader = ","
+
 map <leader>w :w!<CR>
 noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 noremap <leader>h :nohls<CR>
@@ -123,12 +125,6 @@ nmap <leader>e <Plug>(easymotion-F)
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
 noremap <silent><expr> z/ incsearch#go(<SID>config_fuzzyall())
 noremap <silent><expr> z? incsearch#go(<SID>config_fuzzyall({'command': '?'}))
 noremap <silent><expr> zg? incsearch#go(<SID>config_fuzzyall({'is_stay': 1}))
@@ -224,14 +220,12 @@ let g:Lf_ShowRelativePath     = 0
 let g:Lf_HideHelp             = 1
 let g:Lf_StlColorscheme       = 'powerline'
 let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
-let g:Lf_CommandMap           = {'<C-J>': ['<C-N>'], '<C-K>': ['<C-P>']}
 
 " Airline
 let g:airline_theme='solarized'
 
 " Easymotion
 let g:EasyMotion_smartcase=1
-let g:incsearch#auto_nohlsearch=1
 
 " Ale
 let g:ale_linters_explicit           = 0
