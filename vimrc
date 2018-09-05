@@ -10,8 +10,8 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator', {'branch' : 'stable'}
 Plug 'altercation/vim-colors-solarized'
 Plug 'ludovicchabant/vim-gutentags'
-" Plug 'skywind3000/gutentags_plus'
-" Plug 'skywind3000/vim-preview'
+Plug 'skywind3000/gutentags_plus'
+Plug 'skywind3000/vim-preview'
 Plug 'mhinz/vim-signify'
 Plug 'justinmk/vim-dirvish'
 Plug 'Shougo/echodoc.vim'
@@ -33,6 +33,7 @@ Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'milkypostman/vim-togglelist'
 
 " Initialize plugin system
 call plug#end()
@@ -64,7 +65,6 @@ set tags=./.tags;,.tags
 set completeopt=menu,menuone
 set signcolumn=yes
 set mouse=a
-set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
 
 colorscheme solarized
 
@@ -90,23 +90,15 @@ noremap <C-l> <C-W>l
 noremap <C-k> <C-W>k
 noremap <C-j> <C-W>j
 noremap <C-h> <C-W>h
-    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-" noremap <silent><C-\>s :GscopeFind s <C-R><C-W><cr>
-" noremap <silent><C-\>g :GscopeFind g <C-R><C-W><cr>
-" noremap <silent><C-\>c :GscopeFind c <C-R><C-W><cr>
-" noremap <silent><C-\>t :GscopeFind t <C-R><C-W><cr>
-" noremap <silent><C-\>e :GscopeFind e <C-R><C-W><cr>
-" noremap <silent><C-\>f :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-" noremap <silent><C-\>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-" noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
-" noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
+noremap <silent><C-\>s :GscopeFind s <C-R><C-W><cr>
+noremap <silent><C-\>g :GscopeFind g <C-R><C-W><cr>
+noremap <silent><C-\>c :GscopeFind c <C-R><C-W><cr>
+noremap <silent><C-\>t :GscopeFind t <C-R><C-W><cr>
+noremap <silent><C-\>e :GscopeFind e <C-R><C-W><cr>
+noremap <silent><C-\>f :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+noremap <silent><C-\>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
+noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
 " nnoremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
 " nnoremap <silent><C-n> :PreviewClose<CR>
 vmap <Enter> <Plug>(EasyAlign)
@@ -122,11 +114,13 @@ noremap <leader>q :cw<CR>
 noremap <leader>s :A<CR>
 noremap <leader><space> :call StripTrailing()<CR>
 noremap <leader>g :YcmCompleter GoTo<CR>
-noremap <leader>f :LeaderfFile<CR>
-noremap <leader>b :LeaderfBuffer<CR>
-noremap <leader>t :LeaderfTag<CR>
-noremap <leader>r :LeaderfMru<CR>
-noremap <leader>m :LeaderfFunction<CR>
+noremap <leader>f :CtrlPFunky<CR>
+noremap <leader>b :CtrlPBuffer<CR>
+" noremap <leader>f :LeaderfFile<CR>
+" noremap <leader>b :LeaderfBuffer<CR>
+" noremap <leader>t :LeaderfTag<CR>
+" noremap <leader>r :LeaderfMru<CR>
+" noremap <leader>m :LeaderfFunction<CR>
 nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
 nmap <leader>d <Plug>(easymotion-f)
@@ -202,15 +196,23 @@ command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args
 augroup qf_config
     autocmd!
     autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
-    autocmd FileType qf nnoremap <silent><buffer> o <CR>:cclose<CR>
-    autocmd FileType qf nnoremap <silent><buffer> q :cclose<CR>
+    " autocmd FileType qf nnoremap <silent><buffer> o <CR>:cclose<CR>
+    " autocmd FileType qf nnoremap <silent><buffer> q :cclose<CR>
 augroup END
+
+" CtrlP
+let g:ctrlp_extensions = ['tag']
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
+endif
 
 " Preview
 augroup priview_config
     autocmd!
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<CR>
-    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<CR>
+    " autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<CR>
+    " autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<CR>
 augroup END
 
 " CppEnhancedHighlight
@@ -229,15 +231,16 @@ let g:Lf_ShowRelativePath     = 0
 let g:Lf_HideHelp             = 1
 let g:Lf_StlColorscheme       = 'powerline'
 let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
+let g:Lf_CommandMap           = {'<C-U>': ['<C-U>', '<C-W>']}
 
 " Airline
-let g:airline_theme='solarized'
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#left_sep = ' '
+let g:airline_theme                           = 'solarized'
+let g:airline#extensions#tabline#enabled      = 1
+let g:airline#extensions#tabline#left_sep     = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Easymotion
-let g:EasyMotion_smartcase=1
+let g:EasyMotion_smartcase = 1
 
 " Ale
 let g:ale_linters_explicit           = 0
