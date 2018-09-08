@@ -19,7 +19,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
-" Plug 'Yggdroot/LeaderF'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'tpope/vim-commentary'
@@ -99,8 +98,6 @@ noremap <silent><C-\>f :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
 noremap <silent><C-\>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
 noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
 noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
-" nnoremap <silent><C-p> :PreviewTag <C-R><C-W><CR>
-" nnoremap <silent><C-n> :PreviewClose<CR>
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
@@ -116,11 +113,6 @@ noremap <leader><space> :call StripTrailing()<CR>
 noremap <leader>g :YcmCompleter GoTo<CR>
 noremap <leader>f :CtrlPFunky<CR>
 noremap <leader>b :CtrlPBuffer<CR>
-" noremap <leader>f :LeaderfFile<CR>
-" noremap <leader>b :LeaderfBuffer<CR>
-" noremap <leader>t :LeaderfTag<CR>
-" noremap <leader>r :LeaderfMru<CR>
-" noremap <leader>m :LeaderfFunction<CR>
 nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
 nmap <leader>d <Plug>(easymotion-f)
@@ -196,8 +188,6 @@ command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args
 augroup qf_config
     autocmd!
     autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
-    " autocmd FileType qf nnoremap <silent><buffer> o <CR>:cclose<CR>
-    " autocmd FileType qf nnoremap <silent><buffer> q :cclose<CR>
 augroup END
 
 " CtrlP
@@ -207,13 +197,6 @@ if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
     let g:ctrlp_use_caching = 0
 endif
-
-" Preview
-augroup priview_config
-    autocmd!
-    " autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<CR>
-    " autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<CR>
-augroup END
 
 " CppEnhancedHighlight
 let g:cpp_class_scope_highlight     = 1
