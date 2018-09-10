@@ -184,7 +184,6 @@ augroup dirvish_config
     autocmd FileType dirvish silent keeppatterns g@\v/\.[^\/]+/?$@d _
     autocmd FileType dirvish sort ,^.*[\/],
     autocmd FileType dirvish silent! unmap <buffer> o
-    autocmd FileType dirvish nmap o i
 augroup END
 
 let g:loaded_netrwPlugin=1
