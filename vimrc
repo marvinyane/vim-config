@@ -64,14 +64,16 @@ set tags=./.tags;,.tags
 set completeopt=menu,menuone
 set signcolumn=yes
 set mouse=a
-
-colorscheme solarized
+set t_Co=256
 
 if has('gui_running')
     set background=light
 else
     set background=dark
 endif
+
+
+colorscheme solarized
 
 hi! clear SignColumn
 hi! clear LineNr
