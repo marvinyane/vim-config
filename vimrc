@@ -64,7 +64,6 @@ set tags=./.tags;,.tags
 set completeopt=menu,menuone
 set signcolumn=yes
 set mouse=a
-set t_Co=256
 
 if has('gui_running')
     set background=light
@@ -72,7 +71,8 @@ else
     set background=dark
 endif
 
-
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
 colorscheme solarized
 
 hi! clear SignColumn
