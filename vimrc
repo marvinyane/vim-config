@@ -27,7 +27,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
@@ -71,8 +70,8 @@ else
     set background=dark
 endif
 
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
+" let g:solarized_termtrans=1
+" let g:solarized_termcolors=256
 colorscheme solarized
 
 hi! clear SignColumn
@@ -109,7 +108,6 @@ let g:mapleader = ","
 map <leader>w :w!<CR>
 noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 noremap <leader>h :nohls<CR>
-noremap <leader>q :cw<CR>
 noremap <leader>s :A<CR>
 noremap <leader><space> :call StripTrailing()<CR>
 noremap <leader>g :YcmCompleter GoTo<CR>
@@ -117,14 +115,11 @@ noremap <leader>f :CtrlPFunky<CR>
 noremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
-nmap <leader>d <Plug>(easymotion-f)
-nmap <leader>e <Plug>(easymotion-F)
+nmap f <Plug>(easymotion-f)
+nmap F <Plug>(easymotion-F)
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-noremap <silent><expr> z/ incsearch#go(<SID>config_fuzzyall())
-noremap <silent><expr> z? incsearch#go(<SID>config_fuzzyall({'command': '?'}))
-noremap <silent><expr> zg? incsearch#go(<SID>config_fuzzyall({'is_stay': 1}))
 
 " YouCompleteMe settings
 let g:ycm_use_ultisnips_completer                       = 1
@@ -204,18 +199,6 @@ let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight      = 1
 let g:cpp_no_function_highlight     = 0
 
-" LeaderF
-let g:Lf_StlSeparator         = { 'left': '', 'right': '', 'font': '' }
-let g:Lf_RootMarkers          = ['.project', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight         = 0.30
-let g:Lf_CacheDirectory       = expand('~/.vim/cache')
-let g:Lf_ShowRelativePath     = 0
-let g:Lf_HideHelp             = 1
-let g:Lf_StlColorscheme       = 'powerline'
-let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
-let g:Lf_CommandMap           = {'<C-U>': ['<C-U>', '<C-W>']}
-
 " Airline
 let g:airline_theme                           = 'solarized'
 let g:airline#extensions#tabline#enabled      = 1
@@ -254,11 +237,3 @@ function! StripTrailing()
     call cursor(previous_cursor_line, previous_cursor_column)
 endfunction
 
-function! s:config_fuzzyall(...) abort
-  return extend(copy({
-  \   'converters': [
-  \     incsearch#config#fuzzy#converter(),
-  \     incsearch#config#fuzzyspell#converter()
-  \   ],
-  \ }), get(a:, 1, {}))
-endfunction
