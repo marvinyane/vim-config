@@ -32,6 +32,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'milkypostman/vim-togglelist'
+" Plug 'fatih/vim-go'
 
 " Initialize plugin system
 call plug#end()
@@ -111,12 +112,15 @@ noremap <leader>h :nohls<CR>
 noremap <leader>s :A<CR>
 noremap <leader><space> :call StripTrailing()<CR>
 noremap <leader>g :YcmCompleter GoTo<CR>
-noremap <leader>f :CtrlPFunky<CR>
+" noremap <leader>f :CtrlPFunky<CR>
+" nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 noremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
-nmap f <Plug>(easymotion-f)
-nmap F <Plug>(easymotion-F)
+" nmap f <Plug>(easymotion-f)
+" nmap F <Plug>(easymotion-F)
+nmap <leader>f <Plug>(easymotion-f)
+nmap <leader>F <Plug>(easymotion-F)
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
