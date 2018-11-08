@@ -21,6 +21,7 @@ Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
+" Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-commentary'
 Plug 'albfan/ag.vim'
 Plug 'vim-airline/vim-airline'
@@ -64,6 +65,7 @@ set tags=./.tags;,.tags
 set completeopt=menu,menuone
 set signcolumn=yes
 set mouse=a
+set foldmethod=manual
 
 if has('gui_running')
     set background=light
@@ -104,23 +106,22 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 let mapleader   = ","
-let g:mapleader = ","
 
 map <leader>w :w!<CR>
 noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 noremap <leader>h :nohls<CR>
 noremap <leader>s :A<CR>
-noremap <leader><space> :call StripTrailing()<CR>
-noremap <leader>g :YcmCompleter GoTo<CR>
-" noremap <leader>f :CtrlPFunky<CR>
+noremap <leader>k :call StripTrailing()<CR>
+" noremap <leader>g :YcmCompleter GoTo<CR>
+noremap <leader>f :CtrlPFunky<CR>
 " nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 noremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
 " nmap f <Plug>(easymotion-f)
 " nmap F <Plug>(easymotion-F)
-nmap <leader>f <Plug>(easymotion-f)
-nmap <leader>F <Plug>(easymotion-F)
+" nmap <leader>f <Plug>(easymotion-f)
+" nmap <leader>F <Plug>(easymotion-F)
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
@@ -228,7 +229,7 @@ let g:ale_c_cppcheck_options         = ''
 let g:ale_cpp_cppcheck_options       = ''
 
 " UltiSnippets/vim-snippets
-let g:UltiSnipsExpandTrigger       = "<leader><leader>"
+" let g:UltiSnipsExpandTrigger       = "<leader><leader>"
 let g:UltiSnipsJumpForwardTrigger  = "<c-f>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 
