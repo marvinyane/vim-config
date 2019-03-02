@@ -27,13 +27,13 @@ Plug 'albfan/ag.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch.vim'
+" Plug 'haya14busa/incsearch.vim'
 Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'milkypostman/vim-togglelist'
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
 " Initialize plugin system
 call plug#end()
@@ -41,8 +41,8 @@ call plug#end()
 " Vim default settings
 set encoding=utf-8
 set number
-set listchars=tab:▸\ ,trail:▫
-set list
+" set listchars=tab:▸\ ,trail:▫
+" set list
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -66,6 +66,7 @@ set completeopt=menu,menuone
 set signcolumn=yes
 set mouse=a
 set foldmethod=manual
+set ttimeoutlen=10
 
 if has('gui_running')
     set background=light
@@ -84,6 +85,15 @@ hi! clear VertSplit
 highlight DiffAdd    cterm=bold ctermbg=none ctermfg=119
 highlight DiffDelete cterm=bold ctermbg=none ctermfg=167
 highlight DiffChange cterm=bold ctermbg=none ctermfg=227
+
+" Fix cursor in TMUN
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " Hotkey
 inoremap jj <ESC>
@@ -111,25 +121,23 @@ map <leader>w :w!<CR>
 noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 noremap <leader>h :nohls<CR>
 noremap <leader>s :A<CR>
-noremap <leader>k :call StripTrailing()<CR>
+noremap <leader><space> :call StripTrailing()<CR>
 " noremap <leader>g :YcmCompleter GoTo<CR>
 noremap <leader>f :CtrlPFunky<CR>
 " nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-noremap <leader>b :CtrlPBuffer<CR>
+" noremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
 " nmap f <Plug>(easymotion-f)
 " nmap F <Plug>(easymotion-F)
-" nmap <leader>f <Plug>(easymotion-f)
-" nmap <leader>F <Plug>(easymotion-F)
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+" nmap s <Plug>(easymotion-overwin-f)
+
+vnoremap <leader>r "hy:%s/<c-r>h//gc<left><left><left>
 
 " YouCompleteMe settings
 let g:ycm_use_ultisnips_completer                       = 1
-let g:ycm_semantic_triggers                             = {'c,cpp,python,java,go,lua,javascript': ['re!^\s+\w{2}']}
-let g:ycm_filetype_whitelist                            = {'c': 1, 'cpp': 1, 'cc': 1, 'h': 1, 'go': 1, 'java': 1, 'lua': 1, 'javascript': 1}
+let g:ycm_semantic_triggers                             = {'c,cpp,python,go,lua,javascript,php': ['re!^\s+\w{2}']}
+let g:ycm_filetype_whitelist                            = {'c': 1, 'cpp': 1, 'h': 1, 'python': 1, 'go': 1, 'lua': 1, 'javascript': 1, 'php': 1}
 let g:ycm_seed_identifiers_with_syntax                  = 0
 let g:ycm_key_invoke_completion                         = '<leader>c'
 let g:ycm_complete_in_comments                          = 1

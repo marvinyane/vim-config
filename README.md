@@ -1,3 +1,3 @@
 # vim-config
 
-Backup my vimrc
+备份VIM配置
