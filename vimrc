@@ -33,7 +33,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'milkypostman/vim-togglelist'
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
 " Initialize plugin system
 call plug#end()
@@ -41,8 +41,8 @@ call plug#end()
 " Vim default settings
 set encoding=utf-8
 set number
-set listchars=tab:▸\ ,trail:▫
-set list
+" set listchars=tab:▸\ ,trail:▫
+" set list
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -111,7 +111,7 @@ map <leader>w :w!<CR>
 noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 noremap <leader>h :nohls<CR>
 noremap <leader>s :A<CR>
-noremap <leader>k :call StripTrailing()<CR>
+noremap <leader><space> :call StripTrailing()<CR>
 " noremap <leader>g :YcmCompleter GoTo<CR>
 noremap <leader>f :CtrlPFunky<CR>
 " nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
@@ -125,6 +125,8 @@ vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+
+vnoremap <leader>r "hy:%s/<c-r>h//gc<left><left><left>
 
 " YouCompleteMe settings
 let g:ycm_use_ultisnips_completer                       = 1
