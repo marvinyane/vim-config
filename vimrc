@@ -134,6 +134,8 @@ vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
 
 vnoremap <leader>r "hy:%s/<c-r>h//gc<left><left><left>
 
+vnoremap <leader>r "hy:%s/<c-r>h//gc<left><left><left>
+
 " YouCompleteMe settings
 let g:ycm_use_ultisnips_completer                       = 1
 let g:ycm_semantic_triggers                             = {'c,cpp,python,go,lua,javascript,php': ['re!^\s+\w{2}']}
