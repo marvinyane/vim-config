@@ -239,7 +239,7 @@ let g:ale_c_cppcheck_options         = ''
 let g:ale_cpp_cppcheck_options       = ''
 
 " UltiSnippets/vim-snippets
-" let g:UltiSnipsExpandTrigger       = "<leader><leader>"
+let g:UltiSnipsExpandTrigger       = "<c-e>"
 let g:UltiSnipsJumpForwardTrigger  = "<c-f>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 
