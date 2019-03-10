@@ -96,7 +96,7 @@ else
 endif
 
 " Hotkey
-inoremap jj <ESC>
+" inoremap jj <ESC>
 map j gj
 map k gk
 noremap <C-l> <C-W>l
