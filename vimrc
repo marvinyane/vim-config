@@ -253,3 +253,5 @@ function! StripTrailing()
     call cursor(previous_cursor_line, previous_cursor_column)
 endfunction
 
+" vim-go
+let g:go_metalinter_autosave = 0
