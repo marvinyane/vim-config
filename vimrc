@@ -150,6 +150,7 @@ let g:ycm_min_num_identifier_candidate_chars            = 2
 let g:ycm_confirm_extra_conf                            = 0
 let g:ycm_max_num_candidates                            = 10
 let g:ycm_show_diagnostics_ui                           = 0
+let g:ycm_global_ycm_extra_conf                         = '~/.ycm/.ycm_extra_conf.py'
 
 " Gutentags
 let g:gutentags_project_root     = ['.svn', '.git', '.project']
