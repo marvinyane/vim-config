@@ -16,24 +16,26 @@ Plug 'mhinz/vim-signify'
 Plug 'justinmk/vim-dirvish'
 Plug 'Shougo/echodoc.vim'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-eunuch'
-Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
-" Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-commentary'
 Plug 'albfan/ag.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
-" Plug 'haya14busa/incsearch.vim'
 Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'milkypostman/vim-togglelist'
 Plug 'fatih/vim-go'
+
+" Plug 'tpope/vim-eunuch'
+" Plug 'vim-scripts/a.vim'
+" Plug 'tpope/vim-projectionist'
+" Plug 'Yggdroot/LeaderF'
+" Plug 'haya14busa/incsearch.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -150,6 +152,7 @@ let g:ycm_min_num_identifier_candidate_chars            = 2
 let g:ycm_confirm_extra_conf                            = 0
 let g:ycm_max_num_candidates                            = 10
 let g:ycm_show_diagnostics_ui                           = 0
+let g:ycm_global_ycm_extra_conf                         = '~/.ycm/.ycm_extra_conf.py'
 
 " Gutentags
 let g:gutentags_project_root     = ['.svn', '.git', '.project']
@@ -254,4 +257,4 @@ function! StripTrailing()
 endfunction
 
 " vim-go
-let g:go_metalinter_autosave = 0
+let g:go_metalinter_autosave    = 0
