@@ -16,25 +16,26 @@ Plug 'mhinz/vim-signify'
 Plug 'justinmk/vim-dirvish'
 Plug 'Shougo/echodoc.vim'
 Plug 'tpope/vim-unimpaired'
-" Plug 'tpope/vim-eunuch'
-" Plug 'vim-scripts/a.vim'
-" Plug 'tpope/vim-projectionist'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
-" Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-commentary'
 Plug 'albfan/ag.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
-" Plug 'haya14busa/incsearch.vim'
 Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'milkypostman/vim-togglelist'
 Plug 'fatih/vim-go'
+
+" Plug 'tpope/vim-eunuch'
+" Plug 'vim-scripts/a.vim'
+" Plug 'tpope/vim-projectionist'
+" Plug 'Yggdroot/LeaderF'
+" Plug 'haya14busa/incsearch.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -256,4 +257,4 @@ function! StripTrailing()
 endfunction
 
 " vim-go
-let g:go_metalinter_autosave = 0
+let g:go_metalinter_autosave    = 0
