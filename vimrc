@@ -29,7 +29,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'milkypostman/vim-togglelist'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 
 " Plug 'tpope/vim-eunuch'
 " Plug 'vim-scripts/a.vim'
@@ -115,7 +115,7 @@ noremap <silent><C-\>i :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
 noremap <silent><C-\>d :GscopeFind d <C-R><C-W><cr>
 noremap <silent><C-\>a :GscopeFind a <C-R><C-W><cr>
 vmap <Enter> <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+" nmap ga <Plug>(EasyAlign)
 
 let mapleader   = ","
 
@@ -124,35 +124,28 @@ noremap <silent><leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'v
 noremap <leader>h :nohls<CR>
 noremap <leader>s :A<CR>
 noremap <leader><space> :call StripTrailing()<CR>
-" noremap <leader>g :YcmCompleter GoTo<CR>
 noremap <leader>f :CtrlPFunky<CR>
-" nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-" noremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>a :Ag!<space>
 vnoremap <leader>a y:Ag! <C-r>=fnameescape(@")<CR>
-" nmap f <Plug>(easymotion-f)
-" nmap F <Plug>(easymotion-F)
-" nmap s <Plug>(easymotion-overwin-f)
 
 vnoremap <leader>r "hy:%s/<c-r>h//gc<left><left><left>
-
 vnoremap <leader>r "hy:%s/<c-r>h//gc<left><left><left>
 
 " YouCompleteMe settings
 let g:ycm_use_ultisnips_completer                       = 1
-let g:ycm_semantic_triggers                             = {'c,cpp,python,go,lua,javascript,php': ['re!^\s+\w{2}']}
-let g:ycm_filetype_whitelist                            = {'c': 1, 'cpp': 1, 'h': 1, 'python': 1, 'go': 1, 'lua': 1, 'javascript': 1, 'php': 1}
+let g:ycm_semantic_triggers                             = {'c,cpp,python,lua,javascript,php,go': ['re!^\s+\w{2}']}
+let g:ycm_filetype_whitelist                            = {'c': 1, 'cpp': 1, 'h': 1, 'python': 1, 'lua': 1, 'javascript': 1, 'php': 1, 'go': 1}
 let g:ycm_seed_identifiers_with_syntax                  = 0
-let g:ycm_key_invoke_completion                         = '<leader>c'
+let g:ycm_key_invoke_completion                         = '<c-g>'
 let g:ycm_complete_in_comments                          = 1
 let g:ycm_complete_in_strings                           = 1
 let g:ycm_log_level                                     = 'error'
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_min_num_identifier_candidate_chars            = 2
 let g:ycm_confirm_extra_conf                            = 0
-let g:ycm_max_num_candidates                            = 10
+let g:ycm_max_num_candidates                            = 20
 let g:ycm_show_diagnostics_ui                           = 0
-let g:ycm_global_ycm_extra_conf                         = '~/.ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf                         = '~/.ycm/ycm_extra_conf.py'
 
 " Gutentags
 let g:gutentags_project_root     = ['.svn', '.git', '.project']
@@ -206,6 +199,7 @@ augroup END
 " CtrlP
 let g:ctrlp_extensions = ['tag']
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
