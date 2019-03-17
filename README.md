@@ -6,6 +6,14 @@
 
 ## go1.10以上补全问题
 
+2019/03/17
+
+最好解决办法是只要改了一个包，就运行一次`go install -i [package]`
+
+===
+
+2019/03/16
+
 go1.10以上的import package不能补全的问题
 
 - 使用`$GOPATH`的项目，需要改一下YCM的文件`.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/completers/go/go_completer.py`

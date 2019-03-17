@@ -256,6 +256,5 @@ endfunction
 
 " vim-go
 let g:go_metalinter_autosave = 0
-let g:go_auto_sameids        = 1
-let g:go_updatetime          = 800
 let g:go_autodetect_gopath   = 1
+let g:go_echo_go_info        = 0
