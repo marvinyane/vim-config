@@ -29,8 +29,10 @@ Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'milkypostman/vim-togglelist'
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'zchee/deoplete-go'
 " Plug 'tpope/vim-eunuch'
 " Plug 'vim-scripts/a.vim'
 " Plug 'tpope/vim-projectionist'
@@ -68,16 +70,15 @@ set completeopt=menu,menuone
 set signcolumn=yes
 set mouse=a
 set foldmethod=manual
-set ttimeoutlen=10
+set ttimeoutlen=50
 
 if has('gui_running')
-    set background=light
+    set background=dark
 else
     set background=dark
 endif
 
-" let g:solarized_termtrans=1
-" let g:solarized_termcolors=256
+let g:solarized_termtrans=1
 colorscheme solarized
 
 hi! clear SignColumn
@@ -200,6 +201,9 @@ augroup END
 let g:ctrlp_extensions = ['tag']
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_extensions = ['funky', 'quickfix']
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -251,4 +255,7 @@ function! StripTrailing()
 endfunction
 
 " vim-go
-let g:go_metalinter_autosave    = 0
+let g:go_metalinter_autosave = 0
+let g:go_auto_sameids        = 1
+let g:go_updatetime          = 800
+let g:go_autodetect_gopath   = 1
