@@ -18,7 +18,7 @@
 |normal|ctrl+j|激活下屏|
 |normal|ctrl+k|激活上屏|
 |normal|ctrl+l|激活右屏|
-|normal|ctrl+\|cscope|
+|normal|ctrl+\\|cscope|
 |normal|,w|保存文件|
 |normal|,,s+[任意一个字段]|快速跳转|
 |normal|,a|全局搜索|
