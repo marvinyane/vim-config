@@ -29,9 +29,11 @@ Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'milkypostman/vim-togglelist'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 " Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'roxma/nvim-yarp'
 " Plug 'zchee/deoplete-go'
 " Plug 'tpope/vim-eunuch'
 " Plug 'vim-scripts/a.vim'
@@ -134,8 +136,8 @@ vnoremap <leader>r "hy:%s/<c-r>h//gc<left><left><left>
 
 " YouCompleteMe settings
 let g:ycm_use_ultisnips_completer                       = 1
-let g:ycm_semantic_triggers                             = {'c,cpp,python,lua,javascript,php,go,sh': ['re!^\s+\w{2}']}
-let g:ycm_filetype_whitelist                            = {'c': 1, 'cpp': 1, 'h': 1, 'python': 1, 'lua': 1, 'javascript': 1, 'php': 1, 'go': 1, 'sh': 1}
+let g:ycm_semantic_triggers                             = {'c,cpp,python,lua,javascript,php,sh,go': ['re!^\s+\w{2}']}
+let g:ycm_filetype_whitelist                            = {'c': 1, 'cpp': 1, 'h': 1, 'python': 1, 'lua': 1, 'javascript': 1, 'php': 1, 'sh': 1, 'go': 1}
 let g:ycm_seed_identifiers_with_syntax                  = 0
 let g:ycm_key_invoke_completion                         = '<c-g>'
 let g:ycm_complete_in_comments                          = 1
@@ -262,3 +264,6 @@ let g:go_fmt_autosave             = 0
 let g:go_highlight_functions      = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_fields         = 1
+
+" deoplete
+" let g:deoplete#enable_at_startup = 1
