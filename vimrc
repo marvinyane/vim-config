@@ -258,3 +258,4 @@ endfunction
 let g:go_metalinter_autosave = 0
 let g:go_autodetect_gopath   = 1
 let g:go_echo_go_info        = 0
+let g:go_fmt_autosave        = 0
