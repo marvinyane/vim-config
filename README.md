@@ -4,34 +4,13 @@
 
 直接运行install.sh安装
 
-## 快捷键
-
-|模式|快捷键|功能|
-|---|---|---|
-|normal|ctrl+]|跳转到定义|
-|normal|ctrl+t|跳转出栈|
-|normal|ctrl+i|前进一步|
-|normal|ctrl+o|后退一步|
-|normal|ctrl+w,v|垂直分屏|
-|normal|ctrl+w,s|水平分屏|
-|normal|ctrl+h|激活左屏|
-|normal|ctrl+j|激活下屏|
-|normal|ctrl+k|激活上屏|
-|normal|ctrl+l|激活右屏|
-|normal|ctrl+\ |cscope|
-|normal|,w|保存文件|
-|normal|,,s+[任意一个字段]|快速跳转|
-|normal|,a|全局搜索|
-|insert|ctrl+e|snipt自生成代码|
-|visual|,r|替换|
-
 ## go1.10以上补全问题
 
 2019/03/17
 
 最好解决办法是只要改了一个包，就运行一次`go install -i [package]`
 
-===
+---
 
 2019/03/16
 
